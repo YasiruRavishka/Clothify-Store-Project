@@ -1,4 +1,4 @@
-package org.icet.service;
+package edu.icet.service;
 
 public interface SuperBo {
 }
