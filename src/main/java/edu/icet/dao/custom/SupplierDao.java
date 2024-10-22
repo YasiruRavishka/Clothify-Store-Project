@@ -1,4 +1,7 @@
 package edu.icet.dao.custom;
 
-public interface SupplierDao {
+import edu.icet.dao.CrudDao;
+import edu.icet.entity.SupplierEntity;
+
+public interface SupplierDao extends CrudDao<SupplierEntity> {
 }
