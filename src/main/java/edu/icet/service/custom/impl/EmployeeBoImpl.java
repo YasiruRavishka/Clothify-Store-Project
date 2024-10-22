@@ -44,7 +44,6 @@ public class EmployeeBoImpl implements EmployeeBo {
     @Override
     public Employee searchEmployeeById(Integer id) {
         EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
-        Employee employee = new ModelMapper().map(employeeDao.search(id), Employee.class);
-        return employee;
+        return new ModelMapper().map(employeeDao.search(id), Employee.class);
     }
 }
