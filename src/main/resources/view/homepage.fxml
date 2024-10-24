@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -22,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.homepage.homepageFormController">
+<BorderPane fx:id="homepage" prefHeight="480.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.homepage.homepageFormController">
    <top>
       <BorderPane style="-fx-background-color: #6056EB;" BorderPane.alignment="CENTER">
          <center>
@@ -111,134 +112,136 @@
             <content>
                   <BorderPane>
                      <center>
-                        <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="340.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="tblProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="340.0" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="ID" />
-                            <TableColumn prefWidth="75.0" text="Name" />
-                              <TableColumn prefWidth="75.0" text="Size" />
-                              <TableColumn prefWidth="75.0" text="Unit Price" />
-                              <TableColumn prefWidth="75.0" text="QtyOnHand" />
+                            <TableColumn fx:id="colProductId" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="colProductName" prefWidth="100.0" text="Name" />
+                              <TableColumn fx:id="colProductSize" prefWidth="75.0" text="Size" />
+                              <TableColumn fx:id="colProductUnitPrice" prefWidth="100.0" text="Unit Price" />
+                              <TableColumn fx:id="colProductQtyOnHand" text="QtyOnHand" />
                           </columns>
                         </TableView>
                      </center>
                      <right>
-                        <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <center>
-                              <VBox prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <VBox BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </BorderPane.margin>
+                           <children>
+                              <HBox VBox.vgrow="ALWAYS" />
+                              <HBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <HBox VBox.vgrow="ALWAYS" />
-                                    <HBox layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS">
+                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
                                        <children>
-                                          <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                                          <VBox alignment="CENTER">
                                              <children>
-                                                <Label fx:id="lblProductTitle" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="New Product" textAlignment="CENTER">
-                                                   <font>
-                                                      <Font name="System Bold" size="16.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label maxWidth="1.7976931348623157E308" text="Name">
+                                                <JFXButton fx:id="btnSelectImg" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#btnSelectImgOnAction" onMouseEntered="#btnSelectImgOnMouseEntered" onMouseExited="#btnSelectImgOnMouseExited" prefHeight="60.0" prefWidth="60.0" snapToPixel="false" style="-fx-background-radius: 15; -fx-background-color: #FFFFFF;" text=" " textAlignment="CENTER" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtProductName" maxWidth="1.7976931348623157E308" promptText="Ex. Watch">
+                                                   <rotationAxis>
+                                                      <Point3D />
+                                                   </rotationAxis>
+                                                   <graphic>
+                                                      <ImageView fx:id="productImg" blendMode="MULTIPLY" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../img/logo.png" />
+                                                         </image>
+                                                         <rotationAxis>
+                                                            <Point3D />
+                                                         </rotationAxis>
+                                                      </ImageView>
+                                                   </graphic>
                                                    <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                   <opaqueInsets>
                                                       <Insets />
-                                                   </opaqueInsets>
-                                                </JFXTextField>
-                                                <Label maxWidth="1.7976931348623157E308" text="Size">
+                                                   </VBox.margin>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </JFXButton>
+                                             </children>
+                                          </VBox>
+                                          <Label fx:id="lblProductTitle" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="New Product" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label maxWidth="1.7976931348623157E308" text="Name">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtProductName" maxWidth="1.7976931348623157E308" promptText="Ex. Watch">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </JFXTextField>
+                                          <Label maxWidth="1.7976931348623157E308" text="Size">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXComboBox fx:id="cmbProductSize" maxWidth="1.7976931348623157E308" visibleRowCount="6">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </JFXComboBox>
+                                          <Label maxWidth="1.7976931348623157E308" text="Unit Price">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtProductUnitPrice" maxWidth="1.7976931348623157E308" promptText="Ex. 5000 /=">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </JFXTextField>
+                                          <Label layoutX="15.0" layoutY="154.0" maxWidth="1.7976931348623157E308" text="QtyOnHand">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="spinnerProductQtyOnHand" editable="true" maxWidth="1.7976931348623157E308">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </Spinner>
+                                          <VBox>
+                                             <children>
+                                                <JFXButton fx:id="btnSubmitProduct" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnSubmitProductOnAction" style="-fx-background-color: #1ABC9C;" text="Add" textAlignment="CENTER" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
-                                                </Label>
-                                                <JFXComboBox fx:id="cmbProductSize" maxWidth="1.7976931348623157E308" visibleRowCount="6">
                                                    <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                      <Insets bottom="5.0" />
                                                    </VBox.margin>
-                                                </JFXComboBox>
-                                                <Label maxWidth="1.7976931348623157E308" text="Unit Price">
+                                                </JFXButton>
+                                                <JFXButton fx:id="btnEscapeProduct" maxWidth="1.7976931348623157E308" onAction="#btnEscapeProductOnAction" style="-fx-background-color: #E74C3C;" text="Clear" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtProductUnitPrice" maxWidth="1.7976931348623157E308" promptText="Ex. 5000 /=">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                </JFXTextField>
-                                                <Label layoutX="15.0" layoutY="154.0" maxWidth="1.7976931348623157E308" text="QtyOnHand">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Spinner fx:id="txtProductQtyOnHand" editable="true" maxWidth="1.7976931348623157E308">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                </Spinner>
-                                                <Label layoutX="15.0" layoutY="205.0" maxWidth="1.7976931348623157E308" text="Image">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <HBox maxWidth="1.7976931348623157E308">
-                                                   <children>
-                                                      <JFXButton alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: #E7E8EB;" text="Choose the image..." HBox.hgrow="ALWAYS">
-                                                         <font>
-                                                            <Font size="12.0" />
-                                                         </font>
-                                                      </JFXButton>
-                                                      <JFXButton alignment="BASELINE_LEFT" disable="true" style="-fx-background-color: #A6A8AB;" text="X" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </JFXButton>
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                </HBox>
-                                                <VBox>
-                                                   <children>
-                                                      <JFXButton fx:id="btnSubmitProduct" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnSubmitProductOnAction" style="-fx-background-color: #1ABC9C;" text="Add" textAlignment="CENTER" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                         <VBox.margin>
-                                                            <Insets bottom="5.0" />
-                                                         </VBox.margin>
-                                                      </JFXButton>
-                                                      <JFXButton fx:id="btnEscapeProduct" maxWidth="1.7976931348623157E308" onAction="#btnEscapeProductOnAction" style="-fx-background-color: #E74C3C;" text="Clear" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                      </JFXButton>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets top="5.0" />
-                                                   </VBox.margin>
-                                                </VBox>
+                                                </JFXButton>
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
                                           </VBox>
                                        </children>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="110.0" VBox.vgrow="ALWAYS" />
+                                    </VBox>
                                  </children>
-                              </VBox>
-                           </center>
-                        </BorderPane>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
                      </right>
                   </BorderPane>
             </content>
@@ -247,95 +250,84 @@
                <content>
                   <BorderPane>
                      <right>
-                        <BorderPane BorderPane.alignment="CENTER">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <HBox VBox.vgrow="ALWAYS" />
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="lblSupplierTitle" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="New Supplier" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label maxWidth="1.7976931348623157E308" text="Name">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtSupplierName" maxWidth="1.7976931348623157E308" promptText="Ex. Amal">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </JFXTextField>
+                                          <Label maxWidth="1.7976931348623157E308" text="Email">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtSupplierEmail" maxWidth="1.7976931348623157E308" promptText="Ex. example@gmail.com">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </JFXTextField>
+                                          <VBox>
+                                             <children>
+                                                <JFXButton fx:id="btnSubmitSupplier" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnSubmitSupplierOnAction" style="-fx-background-color: #1ABC9C;" text="Add" textAlignment="CENTER" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                                <JFXButton fx:id="btnEscapeSupplier" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnEscapeSupplierOnAction" style="-fx-background-color: #E74C3C;" text="Clear" textAlignment="CENTER" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="210.0" VBox.vgrow="ALWAYS" />
+                           </children>
                            <BorderPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </BorderPane.margin>
-                           <center>
-                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
-                                 <children>
-                                    <HBox VBox.vgrow="ALWAYS" />
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
-                                             <children>
-                                                <Label fx:id="lblSupplierTitle" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="New Supplier" textAlignment="CENTER">
-                                                   <font>
-                                                      <Font name="System Bold" size="16.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label maxWidth="1.7976931348623157E308" text="Name">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtSupplierName" maxWidth="1.7976931348623157E308" promptText="Ex. Amal">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                   <opaqueInsets>
-                                                      <Insets />
-                                                   </opaqueInsets>
-                                                </JFXTextField>
-                                                <Label maxWidth="1.7976931348623157E308" text="Email">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtSupplierEmail" maxWidth="1.7976931348623157E308" promptText="Ex. example@gmail.com">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                </JFXTextField>
-                                                <VBox>
-                                                   <children>
-                                                      <JFXButton fx:id="btnSubmitSupplier" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnSubmitSupplierOnAction" style="-fx-background-color: #1ABC9C;" text="Add" textAlignment="CENTER" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                         <VBox.margin>
-                                                            <Insets bottom="5.0" />
-                                                         </VBox.margin>
-                                                      </JFXButton>
-                                                      <JFXButton fx:id="btnEscapeSupplier" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnEscapeSupplierOnAction" style="-fx-background-color: #E74C3C;" text="Clear" textAlignment="CENTER" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                      </JFXButton>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets top="5.0" />
-                                                   </VBox.margin>
-                                                </VBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="210.0" VBox.vgrow="ALWAYS" />
-                                 </children>
-                              </VBox>
-                           </center>
-                           <top>
-                              <JFXButton alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="75.0" onAction="#btnAddNewSupplierOnAction" style="-fx-background-color: #0984E3;" text="Add new supplier" textFill="WHITE" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
-                           </top>
-                        </BorderPane>
+                        </VBox>
                      </right>
                      <center>
                         <TableView fx:id="tblSupplier" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                            <columns>
                               <TableColumn fx:id="colSupplierId" text="ID" />
-                              <TableColumn fx:id="colSupplierName" prefWidth="150.0" text="Name" />
-                              <TableColumn fx:id="colSupplierEmail" prefWidth="150.0" text="Email" />
+                              <TableColumn fx:id="colSupplierName" prefWidth="180.0" text="Name" />
+                              <TableColumn fx:id="colSupplierEmail" prefWidth="220.0" text="Email" />
                            </columns>
                         </TableView>
                      </center>
@@ -346,109 +338,98 @@
                <content>
                   <BorderPane>
                      <right>
-                        <BorderPane BorderPane.alignment="CENTER">
+                        <VBox prefHeight="290.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <HBox VBox.vgrow="ALWAYS" />
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox maxWidth="1.7976931348623157E308" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label fx:id="lblEmployeeTitle" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="New Employee" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label maxWidth="1.7976931348623157E308" text="Name">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtEmployeeName" maxWidth="1.7976931348623157E308" promptText="Ex. Sirimal">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </JFXTextField>
+                                          <Label maxWidth="1.7976931348623157E308" text="Address">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtEmployeeAddress" maxWidth="1.7976931348623157E308" promptText="Ex. No. 123, Main Rd., Colombo.">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </JFXTextField>
+                                          <Label maxWidth="1.7976931348623157E308" text="Email">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtEmployeeEmail" maxWidth="1.7976931348623157E308" promptText="Ex. example@gmail.com">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </JFXTextField>
+                                          <VBox>
+                                             <children>
+                                                <JFXButton fx:id="btnSubmitEmployee" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnSubmitEmployeeOnAction" style="-fx-background-color: #1ABC9C;" text="Add" textAlignment="CENTER" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                                <JFXButton fx:id="btnEscapeEmployee" maxWidth="1.7976931348623157E308" onAction="#btnEscapeEmployeeOnAction" style="-fx-background-color: #E74C3C;" text="Clear" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox VBox.vgrow="ALWAYS" />
+                           </children>
                            <BorderPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </BorderPane.margin>
-                           <center>
-                              <VBox prefHeight="290.0" prefWidth="200.0">
-                                 <children>
-                                    <HBox VBox.vgrow="ALWAYS" />
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox maxWidth="1.7976931348623157E308" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label fx:id="lblEmployeeTitle" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="New Employee" textAlignment="CENTER">
-                                                   <font>
-                                                      <Font name="System Bold" size="16.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label maxWidth="1.7976931348623157E308" text="Name">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtEmployeeName" maxWidth="1.7976931348623157E308" promptText="Ex. Sirimal">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                   <opaqueInsets>
-                                                      <Insets />
-                                                   </opaqueInsets>
-                                                </JFXTextField>
-                                                <Label maxWidth="1.7976931348623157E308" text="Address">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtEmployeeAddress" maxWidth="1.7976931348623157E308" promptText="Ex. No. 123, Main Rd., Colombo.">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                </JFXTextField>
-                                                <Label maxWidth="1.7976931348623157E308" text="Email">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <JFXTextField fx:id="txtEmployeeEmail" maxWidth="1.7976931348623157E308" promptText="Ex. example@gmail.com">
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </VBox.margin>
-                                                </JFXTextField>
-                                                <VBox>
-                                                   <children>
-                                                      <JFXButton fx:id="btnSubmitEmployee" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnSubmitEmployeeOnAction" style="-fx-background-color: #1ABC9C;" text="Add" textAlignment="CENTER" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                         <VBox.margin>
-                                                            <Insets bottom="5.0" />
-                                                         </VBox.margin>
-                                                      </JFXButton>
-                                                      <JFXButton fx:id="btnEscapeEmployee" maxWidth="1.7976931348623157E308" onAction="#btnEscapeEmployeeOnAction" style="-fx-background-color: #E74C3C;" text="Clear" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                      </JFXButton>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets top="5.0" />
-                                                   </VBox.margin>
-                                                </VBox>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox VBox.vgrow="ALWAYS" />
-                                 </children>
-                              </VBox>
-                           </center>
-                           <top>
-                              <JFXButton alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="75.0" onAction="#btnAddNewEmployeeOnAction" style="-fx-background-color: #0984E3;" text="Add new employee" textFill="WHITE" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
-                           </top>
-                        </BorderPane>
+                        </VBox>
                      </right>
                      <center>
                         <TableView fx:id="tblEmployee" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn fx:id="colEmployeeId" prefWidth="65.0" text="ID" />
-                            <TableColumn fx:id="colEmployeeName" prefWidth="96.8348388671875" text="Name" />
-                              <TableColumn fx:id="colEmployeeAddress" minWidth="0.0" prefWidth="120.0" text="Address" />
-                              <TableColumn fx:id="colEmployeeEmail" prefWidth="100.0" text="Email" />
+                            <TableColumn fx:id="colEmployeeId" prefWidth="70.0" text="ID" />
+                            <TableColumn fx:id="colEmployeeName" prefWidth="110.0" text="Name" />
+                              <TableColumn fx:id="colEmployeeAddress" minWidth="0.0" prefWidth="150.0" text="Address" />
+                              <TableColumn fx:id="colEmployeeEmail" prefWidth="150.0" text="Email" />
                           </columns>
                         </TableView>
                      </center>
