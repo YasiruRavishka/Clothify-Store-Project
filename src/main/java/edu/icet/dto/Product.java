@@ -7,8 +7,8 @@ import lombok.ToString;
 import edu.icet.util.ProductSize;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Product {
     private Integer itemCode;
