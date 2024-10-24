@@ -13,7 +13,7 @@ import edu.icet.util.ProductSize;
 public class Product {
     private Integer itemCode;
     private String name;
-    private Enum<ProductSize> size;
+    private ProductSize size;
     private Double unitPrice;
     private Integer qtyOnHand;
     private String imgSrc;
