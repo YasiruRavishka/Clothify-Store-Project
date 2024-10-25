@@ -17,6 +17,8 @@ public class Loader extends Application {
         stage.setOnCloseRequest(event-> {
             System.exit(0);
         });
+        stage.setMinWidth(760.0);
+        stage.setMinHeight(560.0);
         stage.getIcons().add(new Image("/img/logo.png"));
         stage.setTitle("Homepage");
         stage.show();

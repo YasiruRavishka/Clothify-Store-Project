@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="homepage" prefHeight="480.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.homepage.homepageFormController">
+<BorderPane fx:id="homepage" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.homepage.homepageFormController">
    <top>
       <BorderPane style="-fx-background-color: #6056EB;" BorderPane.alignment="CENTER">
          <center>
@@ -115,7 +115,7 @@
                         <TableView fx:id="tblProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="340.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn fx:id="colProductId" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="colProductName" prefWidth="120.0" text="Name" />
+                            <TableColumn fx:id="colProductName" prefWidth="140.0" text="Name" />
                               <TableColumn fx:id="colProductSize" prefWidth="75.0" text="Size" />
                               <TableColumn fx:id="colProductUnitPrice" prefWidth="110.0" text="Unit Price" />
                               <TableColumn fx:id="colProductQtyOnHand" prefWidth="90.0" text="QtyOnHand" />
@@ -128,6 +128,19 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </BorderPane.margin>
                            <children>
+                              <HBox>
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS" />
+                                    <JFXButton alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="50.0" onAction="#btnNewProduct" prefWidth="70.0" style="-fx-background-color: #0984E3;" text="New" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </HBox>
                               <HBox VBox.vgrow="ALWAYS" />
                               <HBox VBox.vgrow="ALWAYS">
                                  <children>
@@ -252,6 +265,19 @@
                      <right>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
+                              <HBox>
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS" />
+                                    <JFXButton alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="50.0" onAction="#btnNewSupplier" prefWidth="70.0" style="-fx-background-color: #0984E3;" text="New" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </HBox>
                               <HBox VBox.vgrow="ALWAYS" />
                               <HBox VBox.vgrow="ALWAYS">
                                  <children>
@@ -326,7 +352,7 @@
                         <TableView fx:id="tblSupplier" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                            <columns>
                               <TableColumn fx:id="colSupplierId" text="ID" />
-                              <TableColumn fx:id="colSupplierName" prefWidth="180.0" text="Name" />
+                              <TableColumn fx:id="colSupplierName" prefWidth="200.0" text="Name" />
                               <TableColumn fx:id="colSupplierEmail" prefWidth="220.0" text="Email" />
                            </columns>
                         </TableView>
@@ -340,6 +366,19 @@
                      <right>
                         <VBox prefHeight="290.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
+                              <HBox layoutX="10.0" layoutY="39.0">
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS" />
+                                    <JFXButton alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="50.0" onAction="#btnNewEmployee" prefWidth="70.0" style="-fx-background-color: #0984E3;" text="New" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </HBox>
                               <HBox VBox.vgrow="ALWAYS" />
                               <HBox VBox.vgrow="ALWAYS">
                                  <children>
@@ -427,9 +466,9 @@
                         <TableView fx:id="tblEmployee" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn fx:id="colEmployeeId" prefWidth="70.0" text="ID" />
-                            <TableColumn fx:id="colEmployeeName" prefWidth="110.0" text="Name" />
+                            <TableColumn fx:id="colEmployeeName" prefWidth="120.0" text="Name" />
                               <TableColumn fx:id="colEmployeeAddress" minWidth="0.0" prefWidth="150.0" text="Address" />
-                              <TableColumn fx:id="colEmployeeEmail" prefWidth="150.0" text="Email" />
+                              <TableColumn fx:id="colEmployeeEmail" prefWidth="160.0" text="Email" />
                           </columns>
                         </TableView>
                      </center>
