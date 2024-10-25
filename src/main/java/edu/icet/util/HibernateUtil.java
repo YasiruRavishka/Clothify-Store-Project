@@ -12,7 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import edu.icet.entity.EmployeeEntity;
 
 public class HibernateUtil {
-    private static SessionFactory session = createSession();
+    private static final SessionFactory session = createSession();
     private static SessionFactory createSession() {
         StandardServiceRegistry build = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")

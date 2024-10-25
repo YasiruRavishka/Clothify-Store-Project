@@ -14,9 +14,7 @@ public class Loader extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/homepage.fxml"))));
-        stage.setOnCloseRequest(event-> {
-            System.exit(0);
-        });
+        stage.setOnCloseRequest(_ -> System.exit(0));
         stage.setMinWidth(760.0);
         stage.setMinHeight(560.0);
         stage.getIcons().add(new Image("/img/logo.png"));
