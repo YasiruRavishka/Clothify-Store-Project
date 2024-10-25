@@ -322,6 +322,21 @@ public class homepageFormController implements Initializable {
     }
 
     @FXML
+    void btnNewEmployee(ActionEvent event) {
+        clearAll();
+    }
+
+    @FXML
+    void btnNewProduct(ActionEvent event) {
+        clearAll();
+    }
+
+    @FXML
+    void btnNewSupplier(ActionEvent event) {
+        clearAll();
+    }
+
+    @FXML
     void btnPreviousOrdersOnAction(ActionEvent event) {
 
     }
@@ -496,7 +511,10 @@ public class homepageFormController implements Initializable {
                 cmbProductSize.setValue(ProductSize.NONE);
                 txtProductUnitPrice.setText(null);
                 spinnerValueFactory.setMax(999);
+                spinnerValueFactory.setValue(1);
                 spinnerProductQtyOnHand.setValueFactory(spinnerValueFactory);
+                btnSubmitProduct.setText("Add");
+                btnEscapeProduct.setText("Clear");
                 break;
             case "Supplier":
                 lblSupplierTitle.setText("New Supplier");
