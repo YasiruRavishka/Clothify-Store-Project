@@ -115,10 +115,10 @@
                         <TableView fx:id="tblProduct" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="340.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn fx:id="colProductId" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="colProductName" prefWidth="100.0" text="Name" />
+                            <TableColumn fx:id="colProductName" prefWidth="120.0" text="Name" />
                               <TableColumn fx:id="colProductSize" prefWidth="75.0" text="Size" />
-                              <TableColumn fx:id="colProductUnitPrice" prefWidth="100.0" text="Unit Price" />
-                              <TableColumn fx:id="colProductQtyOnHand" text="QtyOnHand" />
+                              <TableColumn fx:id="colProductUnitPrice" prefWidth="110.0" text="Unit Price" />
+                              <TableColumn fx:id="colProductQtyOnHand" prefWidth="90.0" text="QtyOnHand" />
                           </columns>
                         </TableView>
                      </center>

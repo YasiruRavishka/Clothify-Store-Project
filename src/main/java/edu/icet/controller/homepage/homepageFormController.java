@@ -3,8 +3,10 @@ package edu.icet.controller.homepage;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import edu.icet.dto.Product;
 import edu.icet.service.BoFactory;
 import edu.icet.service.custom.EmployeeBo;
+import edu.icet.service.custom.ProductBo;
 import edu.icet.service.custom.SupplierBo;
 import edu.icet.util.ServiceType;
 import javafx.collections.FXCollections;
@@ -17,11 +19,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import edu.icet.dto.Employee;
 import edu.icet.util.ProductSize;
 import edu.icet.dto.Supplier;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -29,6 +36,10 @@ import java.util.ResourceBundle;
 
 public class homepageFormController implements Initializable {
     private Stage cartPage;
+    private SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory;
+
+    @FXML
+    private BorderPane homepage;
 
     @FXML
     private JFXButton btnEscapeEmployee;
@@ -38,6 +49,9 @@ public class homepageFormController implements Initializable {
 
     @FXML
     private JFXButton btnEscapeSupplier;
+
+    @FXML
+    private JFXButton btnSelectImg;
 
     @FXML
     private JFXButton btnSubmitEmployee;
@@ -61,6 +75,21 @@ public class homepageFormController implements Initializable {
     private TableColumn<?, ?> colEmployeeName;
 
     @FXML
+    private TableColumn<?, ?> colProductId;
+
+    @FXML
+    private TableColumn<?, ?> colProductName;
+
+    @FXML
+    private TableColumn<?, ?> colProductQtyOnHand;
+
+    @FXML
+    private TableColumn<?, ?> colProductSize;
+
+    @FXML
+    private TableColumn<?, ?> colProductUnitPrice;
+
+    @FXML
     private TableColumn<?, ?> colSupplierEmail;
 
     @FXML
@@ -79,10 +108,16 @@ public class homepageFormController implements Initializable {
     private Label lblSupplierTitle;
 
     @FXML
+    private ImageView productImg;
+
+    @FXML
     private TabPane tabPane;
 
     @FXML
     private TableView<Employee> tblEmployee;
+
+    @FXML
+    private TableView<Product> tblProduct;
 
     @FXML
     private TableView<Supplier> tblSupplier;
@@ -100,7 +135,7 @@ public class homepageFormController implements Initializable {
     private JFXTextField txtProductName;
 
     @FXML
-    private Spinner<Integer> txtProductQtyOnHand;
+    private Spinner<Integer> spinnerProductQtyOnHand;
 
     @FXML
     private JFXComboBox<ProductSize> cmbProductSize;
@@ -119,10 +154,35 @@ public class homepageFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //--------------------  Product  --------------------
         ObservableList<ProductSize> productSizes = FXCollections.observableArrayList();
         productSizes.addAll(Arrays.stream(ProductSize.values()).toList());
         cmbProductSize.setItems(productSizes);
         cmbProductSize.setValue(ProductSize.NONE);
+        spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 999);
+        spinnerProductQtyOnHand.setValueFactory(spinnerValueFactory);
+        //--------------------
+        colProductId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colProductSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colProductUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colProductQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+        tblProduct.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue != null){
+                ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+                Product product = productService.searchProductById(newValue.getId());
+                productImg.setImage(new Image(product.getImgSrc()));
+                lblProductTitle.setText(String.format("%05d",product.getId()));
+                txtProductName.setText(product.getName());
+                cmbProductSize.setValue(product.getSize());
+                txtProductUnitPrice.setText(String.format("%.2f",product.getUnitPrice()));
+                spinnerValueFactory.setValue(product.getQtyOnHand());
+                spinnerProductQtyOnHand.setValueFactory(spinnerValueFactory);
+                btnSubmitProduct.setText("Update");
+                btnEscapeProduct.setText("Delete");
+            }
+        });
+        loadProductTable();
         //--------------------  Supplier  --------------------
         colSupplierId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colSupplierName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -153,16 +213,6 @@ public class homepageFormController implements Initializable {
             }
         });
         loadEmployeeTable();
-    }
-
-    @FXML
-    void btnAddNewEmployeeOnAction(ActionEvent event) {
-        clearAll();
-    }
-
-    @FXML
-    void btnAddNewSupplierOnAction(ActionEvent event) {
-        clearAll();
     }
 
     @FXML
@@ -214,7 +264,26 @@ public class homepageFormController implements Initializable {
 
     @FXML
     void btnEscapeProductOnAction(ActionEvent event) {
-
+        if (btnEscapeProduct.getText().equals("Clear") && btnSubmitProduct.getText().equals("Add")){
+            clearAll();
+            return;
+        }
+        if (btnEscapeProduct.getText().equals("Delete") && btnSubmitProduct.getText().equals("Update")){
+            Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION, "Do you want delete?");
+            alertConfirmation.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK){
+                    Integer productId = Integer.parseInt(lblProductTitle.getText());
+                    ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+                    if(productService.deleteProduct(productId)){
+                        new Alert(Alert.AlertType.INFORMATION,"Product Deleted !").show();
+                    }else {
+                        new Alert(Alert.AlertType.ERROR,"Product Not Deleted !").show();
+                    }
+                    loadProductTable();
+                    clearAll();
+                }
+            });
+        }
     }
 
     @FXML
@@ -263,6 +332,33 @@ public class homepageFormController implements Initializable {
     }
 
     @FXML
+    void btnSelectImgOnAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("SVG", "*.svg")
+        );
+        File file = fileChooser.showOpenDialog(homepage.getScene().getWindow());
+        if (file != null){
+            productImg.setImage(new Image(file.toURI().toString()));
+        }
+    }
+
+    @FXML
+    void btnSelectImgOnMouseEntered(MouseEvent event) {
+        btnSelectImg.setText("Edit");
+        btnSelectImg.setStyle("-fx-background-color: #A6A8AB; -fx-background-radius: 15;");
+    }
+
+    @FXML
+    void btnSelectImgOnMouseExited(MouseEvent event) {
+        btnSelectImg.setText("");
+        btnSelectImg.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 15;");
+    }
+
+    @FXML
     void btnSubmitEmployeeOnAction(ActionEvent event) {
         String employeeName = txtEmployeeName.getText();
         String employeeAddress = txtEmployeeAddress.getText();
@@ -299,7 +395,45 @@ public class homepageFormController implements Initializable {
 
     @FXML
     void btnSubmitProductOnAction(ActionEvent event) {
-
+        String productImgSrc = productImg.getImage().getUrl();
+        String productName = txtProductName.getText();
+        if (isNullOrEmptyOrBlank(productName)){
+            new Alert(Alert.AlertType.WARNING,"Product name empty!").show();
+            return;
+        }
+        ProductSize productSize = cmbProductSize.getValue();
+        double productUnitPrice;
+        try {
+            productUnitPrice = Double.parseDouble(txtProductUnitPrice.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING,"Invalid Unit Price!").show();
+            return;
+        }
+        int productQtyOnHand = spinnerProductQtyOnHand.getValue();
+        if (btnEscapeProduct.getText().equals("Clear") && btnSubmitProduct.getText().equals("Add")){
+            Product newProduct = new Product(null, productName,productSize,productUnitPrice,productQtyOnHand,productImgSrc);
+            ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+            if(productService.addProduct(newProduct)){
+                new Alert(Alert.AlertType.INFORMATION,"Product Added !").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Product Not Added !").show();
+            }
+            loadProductTable();
+            clearAll();
+            return;
+        }
+        if (btnEscapeProduct.getText().equals("Delete") && btnSubmitProduct.getText().equals("Update")){
+            Integer productId = Integer.parseInt(lblProductTitle.getText());
+            Product updateProduct = new Product(productId, productName,productSize,productUnitPrice,productQtyOnHand,productImgSrc);
+            ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+            if(productService.updateProduct(updateProduct)){
+                new Alert(Alert.AlertType.INFORMATION,"Product Updated !").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Product Not Updated !").show();
+            }
+            loadProductTable();
+            clearAll();
+        }
     }
 
     @FXML
@@ -336,6 +470,11 @@ public class homepageFormController implements Initializable {
         }
     }
 
+    private void loadProductTable(){
+        ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+        tblProduct.setItems(productService.getAll());
+    }
+
     private void loadSupplierTable(){
         SupplierBo supplierService = BoFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
         tblSupplier.setItems(supplierService.getAll());
@@ -351,6 +490,13 @@ public class homepageFormController implements Initializable {
             case "Order":
                 break;
             case "Product":
+                productImg.setImage(new Image("img/logo.png"));
+                lblProductTitle.setText("New Product");
+                txtProductName.setText(null);
+                cmbProductSize.setValue(ProductSize.NONE);
+                txtProductUnitPrice.setText(null);
+                spinnerValueFactory.setMax(999);
+                spinnerProductQtyOnHand.setValueFactory(spinnerValueFactory);
                 break;
             case "Supplier":
                 lblSupplierTitle.setText("New Supplier");
