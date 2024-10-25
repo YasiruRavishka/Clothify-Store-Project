@@ -90,7 +90,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             return metadata.getSessionFactoryBuilder().build();
         }
 
-        public static Session getSession(){
+        private static Session getSession(){
             return session.openSession();
         }
     }
