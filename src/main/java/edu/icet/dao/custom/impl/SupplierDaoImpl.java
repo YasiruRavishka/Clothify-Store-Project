@@ -59,12 +59,24 @@ public class SupplierDaoImpl implements SupplierDao {
     }
 
     @Override
-    public SupplierEntity search(Integer id) {
+    public SupplierEntity searchById(Integer id) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             SupplierEntity entity = session.get(SupplierEntity.class, id);
             session.getTransaction().commit();
             return entity;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public ObservableList<SupplierEntity> searchByName(String name) {
+        try (Session session = HibernateUtil.getSession()) {
+            session.beginTransaction();
+            List<SupplierEntity> entityList = session.createQuery("FROM SupplierEntity WHERE name='"+name+"'", SupplierEntity.class).getResultList();
+            session.getTransaction().commit();
+            return FXCollections.observableList(entityList);
         } catch (Exception e) {
             return null;
         }

@@ -59,12 +59,27 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public ProductEntity search(Integer id) {
+    public ProductEntity searchById(Integer id) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             ProductEntity entity = session.get(ProductEntity.class, id);
             session.getTransaction().commit();
             return entity;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public ObservableList<ProductEntity> searchByName(String name) {
+        try (Session session = HibernateUtil.getSession()) {
+            session.beginTransaction();
+            List<ProductEntity> entityList = session.createQuery("FROM ProductEntity WHERE name='"+name+"'", ProductEntity.class).getResultList();
+            session.getTransaction().commit();
+            for (ProductEntity entity : entityList) {
+                System.out.println(entity.getName());
+            }
+            return FXCollections.observableList(entityList);
         } catch (Exception e) {
             return null;
         }

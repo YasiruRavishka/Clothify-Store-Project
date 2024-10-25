@@ -59,12 +59,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public EmployeeEntity search(Integer id) {
+    public EmployeeEntity searchById(Integer id) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             EmployeeEntity entity = session.get(EmployeeEntity.class, id);
             session.getTransaction().commit();
             return entity;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public ObservableList<EmployeeEntity> searchByName(String name) {
+        try (Session session = HibernateUtil.getSession()) {
+            session.beginTransaction();
+            List<EmployeeEntity> entityList = session.createQuery("FROM EmployeeEntity WHERE name='"+name+"'",EmployeeEntity.class).getResultList();
+            session.getTransaction().commit();
+            return FXCollections.observableList(entityList);
         } catch (Exception e) {
             return null;
         }
