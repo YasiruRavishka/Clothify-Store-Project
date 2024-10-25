@@ -7,6 +7,5 @@ public interface CrudDao<T> extends SuperDao {
     boolean delete(Integer id);
     ObservableList<T> getAll();
     boolean update(T t);
-    T searchById(Integer id);
-    ObservableList<T> searchByName(String name);
+    T search(Integer id);
 }
