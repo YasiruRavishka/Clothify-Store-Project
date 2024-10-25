@@ -90,7 +90,7 @@ public class SupplierDaoImpl implements SupplierDao {
             return metadata.getSessionFactoryBuilder().build();
         }
 
-        private static Session getSession(){
+        public static Session getSession(){
             return session.openSession();
         }
     }
