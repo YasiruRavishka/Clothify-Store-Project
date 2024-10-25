@@ -59,7 +59,7 @@ public class SupplierDaoImpl implements SupplierDao {
     }
 
     @Override
-    public SupplierEntity search(Integer id) {
+    public SupplierEntity searchById(Integer id) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             SupplierEntity entity = session.get(SupplierEntity.class, id);

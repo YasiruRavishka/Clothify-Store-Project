@@ -59,7 +59,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public ProductEntity search(Integer id) {
+    public ProductEntity searchById(Integer id) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             ProductEntity entity = session.get(ProductEntity.class, id);

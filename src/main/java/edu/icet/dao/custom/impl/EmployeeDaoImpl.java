@@ -59,7 +59,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public EmployeeEntity search(Integer id) {
+    public EmployeeEntity searchById(Integer id) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
             EmployeeEntity entity = session.get(EmployeeEntity.class, id);
