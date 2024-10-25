@@ -44,6 +44,16 @@ public class ProductBoImpl implements ProductBo {
     @Override
     public Product searchProductById(Integer id) {
         ProductDao productDao = DaoFactory.getInstance().getDaoType(DaoType.PRODUCT);
-        return new ModelMapper().map(productDao.search(id), Product.class);
+        return new ModelMapper().map(productDao.searchById(id), Product.class);
+    }
+
+    @Override
+    public ObservableList<Product> searchProductByName(String name) {
+        ProductDao productDao = DaoFactory.getInstance().getDaoType(DaoType.PRODUCT);
+        ObservableList<Product> products = FXCollections.observableArrayList();
+        for (ProductEntity productEntity : productDao.searchByName(name)) {
+            products.add(new ModelMapper().map(productEntity, Product.class));
+        }
+        return products;
     }
 }

@@ -44,6 +44,6 @@ public class SupplierBoImpl implements SupplierBo {
     @Override
     public Supplier searchSupplierById(Integer id) {
         SupplierDao supplierDao = DaoFactory.getInstance().getDaoType(DaoType.SUPPLIER);
-        return new ModelMapper().map(supplierDao.search(id), Supplier.class);
+        return new ModelMapper().map(supplierDao.searchById(id), Supplier.class);
     }
 }
