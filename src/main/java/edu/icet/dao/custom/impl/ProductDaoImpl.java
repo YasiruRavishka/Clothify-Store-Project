@@ -69,4 +69,9 @@ public class ProductDaoImpl implements ProductDao {
             return null;
         }
     }
+
+    @Override
+    public ObservableList<ProductEntity> searchByName(String name) {
+        return null;
+    }
 }

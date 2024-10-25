@@ -69,4 +69,9 @@ public class SupplierDaoImpl implements SupplierDao {
             return null;
         }
     }
+
+    @Override
+    public ObservableList<SupplierEntity> searchByName(String name) {
+        return null;
+    }
 }

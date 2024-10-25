@@ -8,4 +8,5 @@ public interface CrudDao<T> extends SuperDao {
     ObservableList<T> getAll();
     boolean update(T t);
     T searchById(Integer id);
+    ObservableList<T> searchByName(String name);
 }

@@ -69,4 +69,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
             return null;
         }
     }
+
+    @Override
+    public ObservableList<EmployeeEntity> searchByName(String name) {
+        return null;
+    }
 }
