@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="220.0" style="-fx-background-color: #E7E8EB; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.homepage.productFormController">
+   <children>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox layoutX="10.0" layoutY="130.0">
+               <children>
+                  <Label text="In stock - ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblStockCount" layoutX="10.0" layoutY="10.0" text="XX">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="3.0" />
+                     </HBox.margin>
+                  </Label>
+                  <VBox minWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Label layoutX="10.0" layoutY="10.0" text="Size - ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblProductSize" layoutX="74.0" layoutY="10.0" text="NONE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <ImageView fx:id="productImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/logo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Label fx:id="lblProductName" text="ProductName">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <VBox minWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lblProductPrice" layoutX="10.0" layoutY="10.0" text="XXXX/=">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="TOP_CENTER">
+               <children>
+                  <JFXButton fx:id="btnAddToCart" minWidth="100.0" onAction="#btnAddToCartOnAction" prefWidth="150.0" style="-fx-background-color: #1ABC9C;" text="Add to cart" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

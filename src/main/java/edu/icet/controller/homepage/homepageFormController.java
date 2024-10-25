@@ -21,7 +21,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import edu.icet.dto.Employee;
@@ -40,6 +42,9 @@ public class homepageFormController implements Initializable {
 
     @FXML
     private BorderPane homepage;
+
+    @FXML
+    private GridPane gridPaneOrder;
 
     @FXML
     private JFXButton btnEscapeEmployee;
@@ -154,6 +159,8 @@ public class homepageFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //--------------------   Order   --------------------
+        loadOrderTab();
         //--------------------  Product  --------------------
         ObservableList<ProductSize> productSizes = FXCollections.observableArrayList();
         productSizes.addAll(Arrays.stream(ProductSize.values()).toList());
@@ -343,7 +350,7 @@ public class homepageFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-
+        loadOrderTab(txtSearch.getText());
     }
 
     @FXML
@@ -485,9 +492,57 @@ public class homepageFormController implements Initializable {
         }
     }
 
+    private void loadOrderTab(){
+        ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+        int column = 0;
+        int row = 1;
+        try {
+            for (Product product : productService.getAll()) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/view/product.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                productFormController productController = fxmlLoader.getController();
+                productController.setData(product);
+
+                if (column == Math.floor(homepage.getPrefWidth()/220)) {
+                    column = 0;
+                    row++;
+                }
+                gridPaneOrder.add(anchorPane, column++, row);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void loadOrderTab(String name){
+        ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+        int column = 0;
+        int row = 1;
+        try {
+            for (Product product : productService.searchProductByName(name)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/view/product.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                productFormController productController = fxmlLoader.getController();
+                productController.setData(product);
+
+                if (column == Math.floor(homepage.getPrefWidth()/220)) {
+                    column = 0;
+                    row++;
+                }
+                gridPaneOrder.add(anchorPane, column++, row);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void loadProductTable(){
         ProductBo productService = BoFactory.getInstance().getServiceType(ServiceType.PRODUCT);
         tblProduct.setItems(productService.getAll());
+        loadOrderTab();
     }
 
     private void loadSupplierTable(){
@@ -503,6 +558,7 @@ public class homepageFormController implements Initializable {
     private void clearAll(){
         switch (tabPane.getSelectionModel().getSelectedItem().getText()){
             case "Order":
+                loadOrderTab();
                 break;
             case "Product":
                 productImg.setImage(new Image("img/logo.png"));

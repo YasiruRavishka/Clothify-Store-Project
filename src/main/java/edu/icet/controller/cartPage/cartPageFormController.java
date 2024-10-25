@@ -1,14 +1,16 @@
 package edu.icet.controller.cartPage;
 
+import edu.icet.dto.CartItem;
+import edu.icet.util.TempCart;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
@@ -48,7 +50,7 @@ public class cartPageFormController implements Initializable {
     private Label lblOrderTime;
 
     @FXML
-    private TableView<?> tblCartItems;
+    private TableView<CartItem> tblCartItems;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,5 +70,17 @@ public class cartPageFormController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+        //--------------------------------------  Table  --------------------------------------
+        colItemId.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        loadCartTable();
+    }
+
+    private void loadCartTable() {
+        tblCartItems.setItems(TempCart.getCartList());
     }
 }
