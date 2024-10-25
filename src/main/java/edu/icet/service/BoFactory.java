@@ -1,6 +1,7 @@
 package edu.icet.service;
 
 import edu.icet.service.custom.impl.EmployeeBoImpl;
+import edu.icet.service.custom.impl.ProductBoImpl;
 import edu.icet.service.custom.impl.SupplierBoImpl;
 import edu.icet.util.ServiceType;
 
@@ -16,7 +17,9 @@ public class BoFactory {
         switch (type){
             case EMPLOYEE:return (T) new EmployeeBoImpl();
             case SUPPLIER:return (T) new SupplierBoImpl();
+            case PRODUCT:return (T) new ProductBoImpl();
+            default:
+                throw new IllegalStateException("BoFactory --> Unexpected value: " + type);
         }
-        return null;
     }
 }
